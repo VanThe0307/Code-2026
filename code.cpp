@@ -1,71 +1,72 @@
-#include <string>
 #include <iostream>
-#include <algorithm>
+#include <string>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
-struct nhanvien{
-    string ten,ma;
-    float luongcung,heso,luong;
+struct hocphan{
+    string tenmon,mamon;
+    int tin;
+    float diemcc,diemthi,diemtong,GPA;
 };
-void nhapds(nhanvien a[],int n){
+void nhapds(hocphan a[],int n){
     for (int i = 0;i < n;i++){
-        cout <<"Nhap ten cua nhan vien thu "<<i+1<<" :";
+        cout <<"Nhap ten mon :";
         cin.ignore();
-        getline(cin, a[i].ten);
-        cout <<"Nhap ma so nhan vien :";
-        cin >>a[i].ma;
-        cout <<"Nhap luong co ban :";
-        cin >>a[i].luongcung;
-        cout <<"He so luong :";
-        cin >>a[i].heso;
-        a[i].luong = a[i].luongcung*a[i].heso;
+        getline(cin, a[i].tenmon);
+        cout <<"Nhap ma mon :";
+        cin >>a[i].mamon;
+        cout <<"Nhap so tin chi :";
+        cin >>a[i].tin;
+        cout <<"Nhap diem chuyen can :";
+        cin >>a[i].diemcc;
+        cout <<"Nhap diem thi :";
+        cin >>a[i].diemthi;
+        a[i].diemtong = a[i].diemcc * 0.3 + a[i].diemthi *0.7;
     }
 }
-void xapsep(nhanvien a[],int n){
+void sapxep(hocphan a[],int n){
     for (int i = 0;i < n-1;i++){
         for (int j = i+1;j < n;j++){
-            if (a[i].luong < a[j].luong){
-                nhanvien temp = a[i];
+            if (a[i].diemtong < a[j].diemtong){
+                hocphan temp = a[i];
                 a[i] = a[j];
-                a[j] = temp;
+                a[j] = temp;           
+            }
+            else if (a[i].diemtong == a[j].diemtong){
+                if (a[i].tin > a[j].tin) a[i].tin;
+                else a[j].tin;
             }
         }
     }
 }
-void timkiem(nhanvien a[],int n){
-    string ma;
-    cout <<"Nhap ma nhan vien muon tim :";
-    cin.ignore();
-    getline(cin, ma);
+void xuatds(hocphan a[],int n){
+
+    cout <<">>> DANH SACH CAC MON HOC <<<"<<endl;
+    float diemtongX_TC;
+    float tongtin;
     for (int i = 0;i < n;i++){
-        if (a[i].ma == ma){
-            cout <<"Nhan vien ma so "<<a[i].ma<<" nay co ten la :"<<a[i].ten<<endl;
-            cout <<"Muc luong cua nhan vien nay :"<<a[i].luong<<" trieu dong";
-        }
+        cout <<left<<setw(20)<<"Ten Mon"<<setw(10)<<"Ma Mon"<<setw(5)<<"So tin"<<setw(8)<<"Diem CC"<<setw(9)<<"Diem thi"<<endl;
+        cout <<"------------------------------------------------"<<endl;
+        cout <<left<<setw(20)<<a[i].tenmon
+             <<setw(10)<<a[i].mamon
+             <<setw(5)<<a[i].tin
+             <<setw(8)<<a[i].diemcc
+             <<fixed<<setprecision(2)<<setw(9)<<a[i].diemthi<<endl;
+        diemtongX_TC += (a[i].diemtong * a[i].tin);
+        tongtin += a[i].tin; 
     }
-}
-void xuatds(nhanvien a[],int n){
-    cout <<"Danh Sach Nhan Vien Trong Cong Ty :"<<endl;
-    cout <<"-------------------------------------"<<endl;
-    cout <<"\n"<<left<<setw(20)<<"Ho va ten"<<setw(10)<<"Ma so"<<setw(10)<<"Luong"<<endl;
-    cout <<"--------------------------------------"<<endl;
-    for (int i = 0;i < n;i++){
-        cout <<left<<setw(20)<<a[i].ten
-             <<setw(10)<<a[i].ma
-             <<fixed<<setprecision(2)<<setw(10)<<a[i].luong<<endl;
-    }
+    float GPA = diemtongX_TC/tongtin;
+    cout <<"GPA ki nay cua ban la :"<<GPA<<endl;
 }
 int main(){
-    nhanvien phong[100];
     int n;
-    cout <<"Nhap so luong nhan vien :";
+    hocphan mon[20];
+    cout <<"Nhap so mon ban hoc :";
     cin >>n;
-    nhapds(phong, n);
-    xuatds(phong, n);
-    xapsep(phong, n);
-    timkiem(phong, n);
+    nhapds(mon, n);
+    sapxep(mon, n);
+    xuatds(mon, n);
     return 0;
 }
-
