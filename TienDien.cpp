@@ -11,9 +11,11 @@ struct khachhang{
 void nhapds(khachhang a[],int n){
     for (int i = 0;i < n;i++){
     cout <<"NHAP THONG TIN KHACH HANG THU "<<i+1<<endl;
-    cin.ignore();
+    cin.ignore(32767, '\n');
     cout <<"Ho va Ten :";
     getline(cin, a[i].hoten);
+    cout <<"Nhap ma khach hang :";
+    cin >>a[i].makh;
     cout <<"Chi so cu :";
     cin >>a[i].chisocu;
     cout <<"Chi so moi :";
@@ -35,7 +37,7 @@ double thanhtien(int sodien){
     return tongtien;
 }
 void xuatds(khachhang a[],int n){
-    cout <<left<<setw(20)<<"Ten Khach Hang"<<setw(10)<<"Ma KH"<<setw(7)<<"So dien"<<setw(10)<<"Thanh Tien"<<endl;
+    cout <<left<<setw(20)<<"Ten Khach Hang"<<setw(10)<<"Ma KH"<<setw(10)<<"So dien"<<setw(10)<<"Thanh Tien"<<endl;
     cout <<"------------------------------------------------"<<endl;
     for (int i = 0;i < n;i++){
         double tien = thanhtien(a[i].sodien);
