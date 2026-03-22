@@ -23,16 +23,16 @@ void nhapsv(sinhvien a[],int n){
 }
 void timkiem(sinhvien a[],int n){
     bool timthay = false;
-    string macantim;
-    cout <<"Nhap ma cua sinh vien can tim: ";cin >>macantim;
+    string tencantim;
+    cout <<"Nhap ma cua sinh vien can tim: ";cin >>tencantim;
     for (int i = 0;i < n;i++){
-        if (a[i].hoten == macantim){
-            cout <<"Ten :"<<a[i].masv<<" | Diem TB :"<<a[i].tb<<endl;
+        if (a[i].hoten == tencantim){
+            cout <<"Ten :"<<a[i].hoten<<" | Diem TB :"<<a[i].tb<<endl;
         }
     }
     if (!timthay) cout <<"Khong tim thay sinh vien nao co ma nay!"<<endl;
 }
-void xoa(sinhvien a[],int n){
+void xoa(sinhvien a[],int &n){
     string macanxoa;
     cout <<"Nhap ma sinh vien can xoa: ";
     cin >>macanxoa;
@@ -44,7 +44,7 @@ void xoa(sinhvien a[],int n){
         }
     }
     if (vitri != -1){
-        for (int j = vitri;j < n;j++){
+        for (int j = vitri;j < n-1;j++){
             a[j] = a[j+1];
         }
         n--;
